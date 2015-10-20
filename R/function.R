@@ -60,4 +60,21 @@ read.txt <- function(file)
     readChar(file,file.info(file)$size)
 }
 
+#removes latex trash
+latexClearFile<-function(rep){
+    fich<-list.files(path=rep,pattern=".*aux$|.*log$|.*toc$|.*lot$|.*mtc0$|.*out$|.*maf$|.*sw.$")
+    res<-sapply(file.path(rep,fich),file.remove)
+}
 
+#
+#NPS : remplace les  caractères accentués
+accentRemove<-function(string){
+            chartr("àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ"
+                                          ,"aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY"
+                                                                     ,string)
+}
+
+# ajoute des 0 devant
+zeroPrefix<-function(n,vect){
+    sprintf( paste0("%0",n,"d"), vect)
+}
