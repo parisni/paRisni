@@ -28,4 +28,36 @@ rmRGEX <- function(txt){
     gsub("([$?.*+^()|]|[[]|[]])","\\\\\\1",txt)
 }
 
+#returns the path from where the script file is
+get_script_path <- function() {
+        getPath<-function(txt){gsub("[^/\\]+$","",txt)}
+    cmdArgs = commandArgs(trailingOnly = FALSE)
+        needle = "--file="
+        match = grep(needle, cmdArgs)
+            if (length(match) > 0) {
+                        # Rscript
+                        return(getPath(normalizePath(sub(needle, "", cmdArgs[match]))))
+            } else {
+                        ls_vars = ls(sys.frames()[[1]])
+                    if ("fileName" %in% ls_vars) {
+                                    # Source'd via RStudio
+                                    return(getPath(normalizePath(sys.frames()[[1]]$fileName)))
+                            } else {
+                                            # Source'd via R console
+                                            return(getPath(normalizePath(sys.frames()[[1]]$ofile)))
+                                    }
+                        }
+}
+
+#tests if vector is empty
+empty <- function(vect){
+        is.na( vect ) | vect == ""
+}
+
+#reads txt flat file
+read.txt <- function(file)
+{
+    readChar(file,file.info(file)$size)
+}
+
 
