@@ -3,6 +3,11 @@ trim <- function(txt){
     gsub("^[[:blank:]]+|[[:blank:]]+$","",txt)
 }
 
+# removes first/lasts spaces of any kind
+trimAll <- function(txt){
+    gsub("^[[:cntrl:][:blank:]]+|[[:cntrl:][:blank:]]+$","",txt)
+}
+
 # fast regex extraction pure c/c++ functions
 strExtractAll <- function(pattern, text, capture=F) {
     if(capture){
