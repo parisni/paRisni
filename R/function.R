@@ -79,6 +79,32 @@ accentRemove<-function(string){
                                                                      ,string)
 }
 
+# replace a pattern that contains accent with some without
+regexAccentIgnore <- function(vect){
+   lst <- c(
+         "[àáâãäa]",
+         "[ÀÁÂÃÄA]",
+         "[çc]",
+         "[ÇC]",
+         "[èéêëe]",
+         "[ÈÉÊËE]",
+         "[ìíîïi]",
+         "[ÌÍÎÏI]",
+         "[ñn]",
+         "[ÑN]",
+         "[òóôõöo]",
+         "[ÒÓÔÕÖO]",
+         "[ùúûüu]",
+         "[ÙÚÛÜU]",
+         "[ýÿy]",
+         "[ÝŸY]"
+         )
+    for(pat in lst){
+    vect <- gsub(pat,pat,vect)
+    }
+vect
+}
+
 # ajoute des 0 devant
 zeroPrefix<-function(n,vect){
     sprintf( paste0("%0",n,"d"), vect)
