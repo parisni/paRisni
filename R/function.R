@@ -109,3 +109,20 @@ vect
 zeroPrefix<-function(n,vect){
     sprintf( paste0("%0",n,"d"), vect)
 }
+
+
+#paste0 qui retire les NA ...
+paste1 <- function(...,sep="") {
+    L <- list(...)
+	L <- lapply(L,as.character)
+    L <- lapply(L,function(x) { na.exclude(x)})
+    gsub(paste0("(^",sep,"|",sep,"$)"),"",
+	                 gsub(paste0(sep,sep),sep,
+			                           do.call(paste,c(L,list(sep=sep)))))
+}
+
+#data.table to factor
+#as.data.table.factor <- function(df){
+#df <- data.table(df)
+#df[,(cols):=lapply(.SD, as.factor),.SDcols=names(df)]
+#}
